@@ -18,7 +18,6 @@ func clear_selection():
 func set_target(target : Vector2):
 	for unit in selection:
 		if unit is Unit:
-			print("move")
 			unit.set_target(target)
 
 func get_size():

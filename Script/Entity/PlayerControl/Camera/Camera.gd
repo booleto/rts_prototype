@@ -10,3 +10,6 @@ func adjust_zoom(unit : float):
 	
 func reset_zoom(unit : Vector2 = Vector2.ONE):
 	zoom = unit
+
+func move(velocity : Vector2):
+	translate(velocity)

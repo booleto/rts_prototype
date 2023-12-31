@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://blesq7ktu8rvl"]
+[gd_scene load_steps=13 format=3 uid="uid://blesq7ktu8rvl"]
 
 [ext_resource type="Script" path="res://Script/Component/FPSCounter/FPSCounter.gd" id="1_5jkjc"]
 [ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="2_5iayo"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dp0dsnh6x1fuc" path="res://Scene/Bullet/bullet.tscn" id="3_c7rww"]
 [ext_resource type="TileSet" uid="uid://ohtuc0bj5oj0" path="res://Resource/Tileset/tileset.tres" id="4_hawy2"]
 [ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerControl.gd" id="9_jkx7p"]
+[ext_resource type="Script" path="res://Script/Component/BuildingSelect/BuildingSelect.gd" id="10_ngyok"]
 [ext_resource type="Script" path="res://Script/Entity/PlayerControl/Camera/Camera.gd" id="11_kyds1"]
 [ext_resource type="Script" path="res://Script/Component/UnitSelect/UnitSelect.gd" id="12_2yonx"]
 [ext_resource type="Script" path="res://Script/Component/RectIntersectQuery/RectIntersectQuery.gd" id="14_46ll6"]
@@ -145,3 +146,6 @@ script = ExtResource("12_2yonx")
 
 [node name="RectIntersectQuery" type="Node2D" parent="PlayerControl"]
 script = ExtResource("14_46ll6")
+
+[node name="BuildingSelect" type="Node" parent="PlayerControl"]
+script = ExtResource("10_ngyok")
