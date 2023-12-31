@@ -22,5 +22,6 @@ func set_radius(r : float):
 
 func _on_body_entered(body):
 	if body is Bullet:
-		take_damage(body.bullet_dmg)
-		body.take_damage(penetration_resistance)
+		#take_damage(body.bullet_dmg)
+		#body.take_damage(penetration_resistance)
+		return
