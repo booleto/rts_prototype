@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=3 uid="uid://blesq7ktu8rvl"]
+
+[ext_resource type="Script" path="res://Script/Entity/Unit/Unit.gd" id="1_6c2jv"]
+[ext_resource type="Texture2D" uid="uid://crigrahii58eb" path="res://Asset/fesh/fesh_ride.png" id="1_81n86"]
+[ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="2_5iayo"]
+[ext_resource type="Script" path="res://Script/Component/AggroComponent/AggroComponent.gd" id="3_8y4ju"]
+[ext_resource type="Script" path="res://Script/Component/NavComponent/NavComponent.gd" id="3_cjbmk"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/StateMachine.gd" id="4_eqr1l"]
+[ext_resource type="TileSet" uid="uid://ohtuc0bj5oj0" path="res://Resource/Tileset/tileset.tres" id="4_hawy2"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/State/State.gd" id="5_rkx8r"]
+[ext_resource type="SpriteFrames" uid="uid://dch21rdi3f0pc" path="res://Resource/Spriteframe/Danmaku/Small/dmk_small.tres" id="6_t5qhg"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerControl.gd" id="9_jkx7p"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/Camera/Camera.gd" id="11_kyds1"]
+[ext_resource type="Script" path="res://Script/Component/UnitSelect/UnitSelect.gd" id="12_2yonx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekgli"]
+radius = 25.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g5462"]
+vertices = PackedVector2Array(1285, -22, 1281, 903, 281, 227, 281, 119, -32, 799, 179, 227, -49, -18, 179, 119)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-60, -28, 1296, -33, 1291, 914, -42, 809)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
+
+[node name="Main" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="GameEntities" type="Node" parent="."]
+
+[node name="Unit" type="CharacterBody2D" parent="GameEntities"]
+position = Vector2(498, 275)
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_6c2jv")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEntities/Unit"]
+shape = SubResource("CircleShape2D_ekgli")
+
+[node name="Sprite2D" type="Sprite2D" parent="GameEntities/Unit"]
+texture = ExtResource("1_81n86")
+offset = Vector2(-17.83, -41)
+
+[node name="NavComponent" type="Node2D" parent="GameEntities/Unit"]
+script = ExtResource("3_cjbmk")
+move_speed = 200.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="GameEntities/Unit/NavComponent"]
+debug_enabled = true
+
+[node name="UnitStateMachine" type="Node" parent="GameEntities/Unit" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_eqr1l")
+initial_state = NodePath("State")
+
+[node name="State" type="Node" parent="GameEntities/Unit/UnitStateMachine"]
+script = ExtResource("5_rkx8r")
+
+[node name="AggroComponent" type="Node2D" parent="GameEntities/Unit"]
+script = ExtResource("3_8y4ju")
+
+[node name="Bullet" type="CharacterBody2D" parent="GameEntities"]
+visible = false
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEntities/Bullet"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameEntities/Bullet"]
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("6_t5qhg")
+
+[node name="GameArea" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_g5462")
+constrain_avoidance = true
+
+[node name="Building" type="StaticBody2D" parent="GameArea"]
+position = Vector2(230, 173)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Building"]
+scale = Vector2(4.08, 4.4)
+shape = SubResource("RectangleShape2D_d0ib0")
+
+[node name="Sprite2D" type="Sprite2D" parent="GameArea/Building"]
+texture = ExtResource("2_5iayo")
+
+[node name="TileMap" type="TileMap" parent="GameArea"]
+z_index = -1
+texture_filter = 1
+scale = Vector2(4, 4)
+tile_set = ExtResource("4_hawy2")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 327680, 65536, 0, 1, 0, 0, 65537, 0, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 0, 0, 2, 65536, 1, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 65536, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 65536, 0, 327683, 0, 0, 4, 0, 0, 65540, 65536, 0, 131076, 65536, 1, 196612, 65536, 0, 262148, 65536, 1, 327684, 0, 0, 5, 65536, 0, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 0, 262149, 65536, 0, 327685, 0, 0, 6, 65536, 0, 65542, 65536, 1, 131078, 0, 0, 196614, 65536, 1, 262150, 65536, 0, 327686, 65536, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 65536, 0, 262151, 65536, 0, 327687, 0, 0, 8, 65536, 0, 65544, 0, 0, 131080, 65536, 0, 196616, 0, 0, 262152, 65536, 0, 327688, 65536, 0, 9, 0, 0, 65545, 0, 0, 131081, 65536, 0, 196617, 0, 0, 262153, 65536, 0, 327689, 65536, 0)
+
+[node name="PlayerControl" type="Node2D" parent="."]
+script = ExtResource("9_jkx7p")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerControl"]
+script = ExtResource("11_kyds1")
+
+[node name="Panel" type="Panel" parent="PlayerControl"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UnitSelect" type="Node" parent="PlayerControl"]
+script = ExtResource("12_2yonx")
+
+[connection signal="target_reached" from="GameEntities/Unit/NavComponent/NavigationAgent2D" to="GameEntities/Unit/NavComponent" method="_on_navigation_agent_2d_target_reached"]

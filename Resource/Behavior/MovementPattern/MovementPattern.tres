@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="MovementPattern" load_steps=2 format=3 uid="uid://bqqmse2amo3m4"]
+
+[ext_resource type="Script" path="res://Script/Component/MovementPattern/MovementPattern.gd" id="1_cmw5p"]
+
+[resource]
+script = ExtResource("1_cmw5p")

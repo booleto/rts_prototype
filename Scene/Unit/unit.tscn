@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=3 uid="uid://7yo6hd10bxur"]
+
+[ext_resource type="Script" path="res://Script/Entity/Unit/Unit.gd" id="1_p7eeu"]
+[ext_resource type="Script" path="res://Script/Component/Hurtbox/Hurtbox.gd" id="2_m1ul5"]
+[ext_resource type="Texture2D" uid="uid://crigrahii58eb" path="res://Asset/fesh/fesh_ride.png" id="3_qvfvy"]
+[ext_resource type="Script" path="res://Script/Component/NavComponent/NavComponent.gd" id="4_wf188"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/StateMachine.gd" id="5_7so6x"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/State/State.gd" id="6_nvqks"]
+[ext_resource type="Script" path="res://Script/Entity/Unit/State/StateMoving.gd" id="7_qobt5"]
+[ext_resource type="Script" path="res://Script/Component/AggroComponent/AggroComponent.gd" id="8_4a1tn"]
+[ext_resource type="Script" path="res://Script/Component/HealthComponent/HealthComponent.gd" id="9_kj5d8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ei1k"]
+size = Vector2(90, 90)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ekgli"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jstp1"]
+radius = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpbaa"]
+bg_color = Color(0.721569, 0.188235, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c71sk"]
+bg_color = Color(0, 0.94902, 0.192157, 1)
+
+[node name="Unit" type="CharacterBody2D" groups=["Team1"]]
+position = Vector2(820, 360)
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_p7eeu")
+metadata/_edit_group_ = true
+
+[node name="SelectionBox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -30)
+shape = SubResource("RectangleShape2D_6ei1k")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("2_m1ul5")
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_ekgli")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("3_qvfvy")
+offset = Vector2(-17.83, -41)
+
+[node name="NavComponent" type="Node2D" parent="."]
+script = ExtResource("4_wf188")
+move_speed = 200.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavComponent"]
+debug_enabled = true
+
+[node name="UnitStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_7so6x")
+initial_state = NodePath("StateIdle")
+
+[node name="StateIdle" type="Node" parent="UnitStateMachine"]
+script = ExtResource("6_nvqks")
+
+[node name="StateMoving" type="Node" parent="UnitStateMachine"]
+script = ExtResource("7_qobt5")
+
+[node name="StateChasing" type="Node" parent="UnitStateMachine"]
+script = ExtResource("6_nvqks")
+
+[node name="AggroComponent" type="Node2D" parent="."]
+script = ExtResource("8_4a1tn")
+
+[node name="AggroRange" type="Area2D" parent="AggroComponent"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroComponent/AggroRange"]
+shape = SubResource("CircleShape2D_jstp1")
+
+[node name="HealthComponent" type="ProgressBar" parent="."]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -100.0
+offset_right = 50.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_hpbaa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c71sk")
+value = 50.0
+show_percentage = false
+script = ExtResource("9_kj5d8")
+
+[node name="BulletSpawner" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]
+[connection signal="target_reached" from="NavComponent/NavigationAgent2D" to="NavComponent" method="_on_navigation_agent_2d_target_reached"]

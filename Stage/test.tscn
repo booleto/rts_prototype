@@ -1,0 +1,147 @@
+[gd_scene load_steps=12 format=3 uid="uid://blesq7ktu8rvl"]
+
+[ext_resource type="Script" path="res://Script/Component/FPSCounter/FPSCounter.gd" id="1_5jkjc"]
+[ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="2_5iayo"]
+[ext_resource type="PackedScene" uid="uid://7yo6hd10bxur" path="res://Scene/Unit/unit.tscn" id="2_s2msc"]
+[ext_resource type="PackedScene" uid="uid://dp0dsnh6x1fuc" path="res://Scene/Bullet/bullet.tscn" id="3_c7rww"]
+[ext_resource type="TileSet" uid="uid://ohtuc0bj5oj0" path="res://Resource/Tileset/tileset.tres" id="4_hawy2"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerControl.gd" id="9_jkx7p"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/Camera/Camera.gd" id="11_kyds1"]
+[ext_resource type="Script" path="res://Script/Component/UnitSelect/UnitSelect.gd" id="12_2yonx"]
+[ext_resource type="Script" path="res://Script/Component/RectIntersectQuery/RectIntersectQuery.gd" id="14_46ll6"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g5462"]
+vertices = PackedVector2Array(1285, -22, 1281, 903, 281, 227, 281, 119, -32, 799, 179, 227, -49, -18, 179, 119)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-60, -28, 1296, -33, 1291, 914, -42, 809)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
+
+[node name="Main" type="Node2D"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FPSCounter" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_5jkjc")
+
+[node name="GameEntities" type="Node" parent="."]
+
+[node name="Unit" parent="GameEntities" instance=ExtResource("2_s2msc")]
+
+[node name="Unit2" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(966, 313)
+
+[node name="Unit3" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(898, 530)
+
+[node name="Unit4" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(850, 693)
+
+[node name="Unit5" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(750, 549)
+
+[node name="Unit6" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(797, 220)
+
+[node name="Unit7" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(814, 87)
+
+[node name="Unit8" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(663, 95)
+
+[node name="Unit9" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(676, 263)
+
+[node name="Unit10" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(602, 398)
+
+[node name="Unit11" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(716, 722)
+
+[node name="Unit12" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(621, 540)
+
+[node name="Unit13" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(511, 701)
+
+[node name="Unit14" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(371, 676)
+
+[node name="Unit15" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(479, 502)
+
+[node name="Unit16" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(532, 256)
+
+[node name="Unit17" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(390, 335)
+
+[node name="Unit18" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(428, 23)
+
+[node name="Unit19" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(144, 118)
+
+[node name="Unit20" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(373, 193)
+
+[node name="Unit21" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(335, 502)
+
+[node name="Unit22" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(233, 659)
+
+[node name="Unit23" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(267, 341)
+
+[node name="Unit24" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(195, 485)
+
+[node name="Unit25" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(80, 585)
+
+[node name="Unit26" parent="GameEntities" instance=ExtResource("2_s2msc")]
+position = Vector2(112, 345)
+
+[node name="Bullet" parent="GameEntities" instance=ExtResource("3_c7rww")]
+position = Vector2(265, 27)
+
+[node name="GameArea" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_g5462")
+constrain_avoidance = true
+metadata/_edit_lock_ = true
+
+[node name="Building" type="StaticBody2D" parent="GameArea"]
+position = Vector2(230, 173)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Building"]
+scale = Vector2(4.08, 4.4)
+shape = SubResource("RectangleShape2D_d0ib0")
+
+[node name="Sprite2D" type="Sprite2D" parent="GameArea/Building"]
+texture = ExtResource("2_5iayo")
+
+[node name="TileMap" type="TileMap" parent="GameArea"]
+z_index = -1
+texture_filter = 1
+scale = Vector2(4, 4)
+tile_set = ExtResource("4_hawy2")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 327680, 65536, 0, 1, 0, 0, 65537, 0, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 0, 0, 2, 65536, 1, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 65536, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 65536, 0, 327683, 0, 0, 4, 0, 0, 65540, 65536, 0, 131076, 65536, 1, 196612, 65536, 0, 262148, 65536, 1, 327684, 0, 0, 5, 65536, 0, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 0, 262149, 65536, 0, 327685, 0, 0, 6, 65536, 0, 65542, 65536, 1, 131078, 0, 0, 196614, 65536, 1, 262150, 65536, 0, 327686, 65536, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 65536, 0, 262151, 65536, 0, 327687, 0, 0, 8, 65536, 0, 65544, 0, 0, 131080, 65536, 0, 196616, 0, 0, 262152, 65536, 0, 327688, 65536, 0, 9, 0, 0, 65545, 0, 0, 131081, 65536, 0, 196617, 0, 0, 262153, 65536, 0, 327689, 65536, 0)
+
+[node name="PlayerControl" type="Node2D" parent="."]
+script = ExtResource("9_jkx7p")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerControl"]
+script = ExtResource("11_kyds1")
+
+[node name="UnitSelect" type="Node" parent="PlayerControl"]
+script = ExtResource("12_2yonx")
+
+[node name="RectIntersectQuery" type="Node2D" parent="PlayerControl"]
+script = ExtResource("14_46ll6")

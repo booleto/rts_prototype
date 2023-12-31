@@ -1,0 +1,33 @@
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://ohtuc0bj5oj0"]
+
+[ext_resource type="Texture2D" uid="uid://65qld0j2llue" path="res://Asset/tilemap/background.png" id="1_qfxlo"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_undf8"]
+resource_name = "grass"
+texture = ExtResource("1_qfxlo")
+texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 2
+0:0/0 = 0
+0:0/0/probability = 0.4
+1:0/next_alternative_id = 2
+1:0/0 = 0
+1:0/0/probability = 0.4
+1:1/next_alternative_id = 2
+1:1/0 = 0
+1:1/0/probability = 0.2
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yxov1"]
+resource_name = "tree"
+texture = ExtResource("1_qfxlo")
+texture_region_size = Vector2i(32, 32)
+0:1/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "Woods 1"
+terrain_set_0/terrain_1/color = Color(0.380392, 0.498039, 0.886275, 1)
+sources/0 = SubResource("TileSetAtlasSource_undf8")
+sources/1 = SubResource("TileSetAtlasSource_yxov1")
