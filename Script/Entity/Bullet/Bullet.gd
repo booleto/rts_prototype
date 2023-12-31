@@ -19,7 +19,7 @@ func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	bullet_time = bullet_lifetime - timer.time_left
 	velocity = movement_pattern.next_velocity(rotation, position, bullet_speed, bullet_time, delta)
 	rotation = movement_pattern.next_rotation(rotation, position, bullet_speed, bullet_time, delta)
@@ -36,16 +36,18 @@ func take_damage(dmg: float):
 	if bullet_health <= 0:
 		queue_free()
 
+func set_collision_radius(radius : float):
+	collision_shape.shape.radius = radius
 
 func handle_collision(collision):
 	if collision == null:
 		return
-	var body = collision.get_collider()
-	if body is Bullet:
-		#simultaneous bullet collision - prevent 1-sided freeing
-		var body_health = body.bullet_health
-		body.bullet_health -= bullet_health
-		bullet_health -= body_health
-		body.take_damage(0)
-		take_damage(0)
+	#var body = collision.get_collider()
+	#if body is Bullet:
+		##simultaneous bullet collision - prevent 1-sided freeing
+		#var body_health = body.bullet_health
+		#body.bullet_health -= bullet_health
+		#bullet_health -= body_health
+		#body.take_damage(0)
+		#take_damage(0)
 
