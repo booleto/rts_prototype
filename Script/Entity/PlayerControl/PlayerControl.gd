@@ -139,20 +139,20 @@ func update_unit_selection():
 		return
 	if mouse1_held and not dragging:
 		# start selection
-		if unit_select.get_size() == 0:
+		if unit_select.get_size() == 0 or shift_held:
 			mouse1_start = get_global_mouse_position()
 			dragging = true
-			queue_redraw()
+
 		elif not shift_held:
 			# order movement
 			unit_select.set_target(get_global_mouse_position())
 
 	if dragging and not mouse1_held:
 		# finalize select
-		if not shift_held:
-			print("clear selection")
-			unit_select.clear_selection()
-			building_select.clear_selection()
+		#if not shift_held:
+			#print("clear selection")
+			#unit_select.clear_selection()
+			#building_select.clear_selection()
 		#selection
 		var drag_end = get_local_mouse_position()
 		if (mouse1_start - drag_end).length() < mouse_drag_deadzone:
@@ -173,7 +173,6 @@ func update_unit_selection():
 			unit_select.add_to_selection(query_result)
 			queue_redraw()
 			dragging = false
-
 	if dragging:
 		queue_redraw()
 		
@@ -181,5 +180,5 @@ func _draw():
 	if dragging:
 		draw_rect(Rect2(mouse1_start, get_global_mouse_position() - mouse1_start),
 				Color.YELLOW, false, camera.zoom.x + 10)
-
+				
 #endregion
