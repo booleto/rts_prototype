@@ -6,6 +6,7 @@ signal took_damage(dmg : float)
 @onready var hurtbox_shape : CollisionShape2D = $HurtboxShape
 var actor
 var penetration_resistance
+var faction
 
 func _ready():
 	actor = get_parent()

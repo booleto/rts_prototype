@@ -157,18 +157,17 @@ func update_unit_selection():
 		var drag_end = get_local_mouse_position()
 		if (mouse1_start - drag_end).length() < mouse_drag_deadzone:
 			#single select
-			var query_result = rect_intersect.single_query(mouse1_start, drag_end, 2)
+			var query_result = await(rect_intersect.single_query(mouse1_start, drag_end, 2))
 			if query_result.size() != 0:
 				query_result = query_result.map(func(entry): return entry.collider)
 				if query_result[0] is Unit:
-					print("added to selection")
 					unit_select.add_to_selection(query_result)
 				#TODO: if query is Building
 			dragging = false
 
 		else:
 			#multiselect
-			var query_result = rect_intersect.query(mouse1_start, drag_end, 2)
+			var query_result = await(rect_intersect.query(mouse1_start, drag_end, 2))
 			query_result = query_result.map(func(entry): return entry.collider)
 			unit_select.add_to_selection(query_result)
 			queue_redraw()

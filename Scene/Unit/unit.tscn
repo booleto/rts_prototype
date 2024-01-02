@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://7yo6hd10bxur"]
+[gd_scene load_steps=19 format=3 uid="uid://7yo6hd10bxur"]
 
 [ext_resource type="Script" path="res://Script/Entity/Unit/Unit.gd" id="1_p7eeu"]
 [ext_resource type="Script" path="res://Script/Component/Hurtbox/Hurtbox.gd" id="2_m1ul5"]
@@ -9,6 +9,10 @@
 [ext_resource type="Script" path="res://Script/Entity/Unit/State/StateMoving.gd" id="7_qobt5"]
 [ext_resource type="Script" path="res://Script/Component/AggroComponent/AggroComponent.gd" id="8_4a1tn"]
 [ext_resource type="Script" path="res://Script/Component/HealthComponent/HealthComponent.gd" id="9_kj5d8"]
+[ext_resource type="Script" path="res://Script/Component/BulletSpawner/BulletSpawner.gd" id="10_1ig1g"]
+[ext_resource type="Script" path="res://Script/Component/BulletSpawner/State/StateCooldown.gd" id="10_ff4ty"]
+[ext_resource type="Resource" uid="uid://7vd7yrucs0ej" path="res://Resource/Behavior/BulletPattern/BulletPattern.tres" id="11_b67nj"]
+[ext_resource type="Script" path="res://Script/Component/BulletSpawner/State/StateShooting.gd" id="11_edv4g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ei1k"]
 size = Vector2(90, 90)
@@ -99,7 +103,19 @@ value = 50.0
 show_percentage = false
 script = ExtResource("9_kj5d8")
 
-[node name="BulletSpawner" type="Node2D" parent="."]
+[node name="BulletSpawner" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("10_1ig1g")
+bullet_pattern = ExtResource("11_b67nj")
+initial_state = NodePath("StateIdle")
+
+[node name="StateCooldown" type="Node" parent="BulletSpawner"]
+script = ExtResource("10_ff4ty")
+
+[node name="StateShooting" type="Node" parent="BulletSpawner"]
+script = ExtResource("11_edv4g")
+
+[node name="StateIdle" type="Node" parent="BulletSpawner"]
+script = ExtResource("6_nvqks")
 
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]
 [connection signal="target_reached" from="NavComponent/NavigationAgent2D" to="NavComponent" method="_on_navigation_agent_2d_target_reached"]

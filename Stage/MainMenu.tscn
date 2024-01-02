@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://bekhp6co3g63w"]
+
+[ext_resource type="Script" path="res://Script/UI/Button/LoadLevel.gd" id="1_wd1lv"]
+
+[node name="MainMenu" type="Node"]
+
+[node name="Menu" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(240, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/VBoxContainer/CenterContainer2"]
+clip_contents = false
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center][color=#FF0000]g[/color][color=#FF4500]a[/color][color=#FF8B00]y[/color] [color=#E7FF00]a[/color][color=#A2FF00]s[/color][color=#5CFF00]s[/color] [color=#00FF2E]v[/color][color=#00FF73]i[/color][color=#00FFB9]d[/color][color=#00FEFF]e[/color][color=#00B9FF]o[/color][color=#0073FF]g[/color][color=#002EFF]a[/color][color=#1700FF]m[/color][color=#5C00FF]e[/color] [color=#E700FF]l[/color][color=#FF00D0]m[/color][color=#FF008B]a[/color][color=#FF0045]o[/color][/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Menu/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "play this gay game"
+script = ExtResource("1_wd1lv")
+level_key = "test"

@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="rtsprototype"
-run/main_scene="res://Stage/test.tscn"
+run/main_scene="res://Stage/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://Script/Autoload/Manager/GameManager.gd"
+FactionUtils="*res://Script/Autoload/Utils/FactionUtils.gd"
+EntityManager="*res://Script/Autoload/Manager/EntityManager.gd"
 
 [display]
 
@@ -87,6 +93,10 @@ shift={
 2d_physics/layer_2="Selectables"
 2d_physics/layer_3="Danmaku"
 2d_physics/layer_4="Entities"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 

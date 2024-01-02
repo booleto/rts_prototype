@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="BulletPattern" load_steps=2 format=3 uid="uid://7vd7yrucs0ej"]
+
+[ext_resource type="Script" path="res://Script/Component/BulletPattern/BulletPattern.gd" id="1_j3jlr"]
+
+[resource]
+script = ExtResource("1_j3jlr")

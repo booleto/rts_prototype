@@ -4,9 +4,7 @@ class_name UnitSelect
 var selection : Array = []
 
 func add_to_selection(arr : Array):	
-	print(arr)
 	for entry in arr:
-		print(entry.position)
 		if entry is Unit: entry.highlight()
 	selection.append_array(arr)
 	

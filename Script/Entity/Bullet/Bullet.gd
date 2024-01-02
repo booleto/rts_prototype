@@ -7,6 +7,9 @@ class_name Bullet
 @export var movement_pattern : MovementPattern
 @export var bullet_health : float = 1
 
+static var bullet_count = 0
+
+var faction : int = 1
 var bullet_dmg : float = 100
 var bullet_lifetime : float = 10
 var bullet_max_dist : float
@@ -16,6 +19,7 @@ var bullet_time : float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	bullet_count += 1
 	timer.timeout.connect(_on_timer_timeout)
 	timer.wait_time = bullet_lifetime
 	timer.start()
@@ -31,6 +35,7 @@ func _physics_process(delta):
 	position += velocity
 
 func _on_timer_timeout():
+	bullet_count -= 1
 	queue_free()
 
 func take_damage(dmg: float):
@@ -46,7 +51,8 @@ func handle_collision(collision):
 	if collision == null:
 		return
 	var body = collision#.get_collider()
-	if body is Hurtbox:
+	#print(self.faction, body.faction)
+	if (body is Hurtbox) and (FactionUtils.is_hostile(faction, body.faction)):
 		take_damage(body.penetration_resistance)
 		body.take_damage(bullet_dmg)
 	#if body is Bullet:

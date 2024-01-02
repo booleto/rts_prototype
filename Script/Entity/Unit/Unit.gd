@@ -15,6 +15,7 @@ var attack_range : float = 100
 var move_speed : float = 200
 var can_move_and_shoot : bool = true
 var hurtbox_radius : float = 25
+var faction : int = 1
 
 #region main
 func _ready():
@@ -22,6 +23,7 @@ func _ready():
 	nav_component.set_move_speed(move_speed)
 	health_component.max_health = max_health
 	hurtbox.penetration_resistance = penetration_resistance
+	hurtbox.faction = faction
 
 func _process(delta):
 	update_sprite_direction()
