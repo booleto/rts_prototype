@@ -3,10 +3,8 @@ extends Node
 var game_entities : Node
 var bullet_packed : PackedScene = preload("res://Scene/Bullet/bullet.tscn")
 
-func spawn_dmk() -> Bullet:
-	var dmk = bullet_packed.instantiate()
-	game_entities.add_child(dmk)
-	return dmk
+func spawn_dmk(bullet : Bullet):
+	game_entities.add_child(bullet)
 
 #TODO: spawn unit
 func spawn_unit() -> Unit:

@@ -9,6 +9,7 @@ func initialize():
 	cooldown.wait_time = state_machine.shot_cooldown
 	cooldown.one_shot = true
 	cooldown.timeout.connect(_on_cooldown_ended)
+	add_child(cooldown)
 
 func enter(params : Dictionary):
 	super(params)

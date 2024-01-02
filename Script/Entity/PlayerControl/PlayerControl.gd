@@ -15,6 +15,8 @@ var mouse_drag_deadzone : float = 90
 var mouse1_held : bool = false
 var mouse2_held : bool = false
 var shift_held : bool = false
+var focused_shot : bool = false
+var parallel_shot : bool = false
 
 var single_select : bool = false
 var drag_select : bool = false
@@ -88,6 +90,8 @@ func update_input_parameters():
 	mouse1_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	mouse2_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	shift_held = Input.is_action_pressed("shift")
+	focused_shot = Input.is_action_pressed("focused_shot")
+	parallel_shot = Input.is_action_pressed("parallel_shot")
 #endregion
 
 
@@ -133,7 +137,10 @@ func update_unit_selection():
 			#queue_redraw()
 	#if event is InputEventMouseMotion and dragging:
 		#queue_redraw()
-
+	if focused_shot:
+		unit_select.focused_shot(get_global_mouse_position())
+		return
+	
 	if mouse2_held and not shift_held:
 		unit_select.clear_selection()
 		return

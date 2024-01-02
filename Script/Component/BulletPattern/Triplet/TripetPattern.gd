@@ -1,22 +1,17 @@
 extends BulletPattern
 class_name TripletPattern
 
-var bullet_temp
-var pattern : MovementPattern
-
-func _ready():
-	pattern = LinearMovement.new()
-	bullet_prefab = preload("res://Scene/Bullet/bullet.tscn")
+var bullet_scene = preload("res://Scene/Bullet/bullet.tscn")
+var pattern : LinearMovement = LinearMovement.new()
 	
-func _physics_process(delta):
-	super(delta)
-	if not casting:
-		return
+func update(tick : int, position : Vector2, angle : float, params : Dictionary = {}) -> status:
+	var bullet_temp : Bullet
 	for i in range(3):
-		bullet_temp = bullet_prefab.instantiate()
+		bullet_temp = bullet_scene.instantiate()
 		bullet_temp.movement_pattern = pattern
-		bullet_temp.position += Vector2.from_angle(shot_angle + (i-1) * 90) * 40
-		bullet_temp.rotation = shot_angle
+		bullet_temp.position = position
+		bullet_temp.position += Vector2.from_angle(angle + (i-1) * 90) * 40
+		bullet_temp.rotation = angle
 		bullet_temp.bullet_lifetime = 10
-		add_child(bullet_temp)
-	stop()
+		EntityManager.spawn_dmk(bullet_temp)
+	return status.ENDED

@@ -7,6 +7,7 @@ class_name Unit
 @onready var aggro_component : AggroComponent = $AggroComponent
 @onready var health_component : HealthComponent = $HealthComponent
 @onready var hurtbox : Hurtbox = $Hurtbox
+@onready var bullet_spawner : BulletSpawner = $BulletSpawner
 
 var unit_name : String
 var max_health : float = 100
@@ -67,4 +68,7 @@ func set_max_health(health: float):
 
 #TODO: implement dmk
 func shoot_dmk(target : Vector2):
-	pass
+	bullet_spawner.transition_to("StateShooting", {
+		'position' : position,
+		'angle' : target.angle(),
+	})
