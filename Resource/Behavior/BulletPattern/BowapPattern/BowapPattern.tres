@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="BowapPattern" load_steps=2 format=3 uid="uid://dtmhsesj7u715"]
+
+[ext_resource type="Script" path="res://Script/Component/BulletPattern/BowapPattern/BowapPattern.gd" id="1_1ib53"]
+
+[resource]
+script = ExtResource("1_1ib53")

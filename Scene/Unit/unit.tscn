@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://7yo6hd10bxur"]
+[gd_scene load_steps=20 format=3 uid="uid://7yo6hd10bxur"]
 
 [ext_resource type="Script" path="res://Script/Entity/Unit/Unit.gd" id="1_p7eeu"]
 [ext_resource type="Script" path="res://Script/Component/Hurtbox/Hurtbox.gd" id="2_m1ul5"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://Script/Component/HealthComponent/HealthComponent.gd" id="9_kj5d8"]
 [ext_resource type="Script" path="res://Script/Component/BulletSpawner/BulletSpawner.gd" id="10_1ig1g"]
 [ext_resource type="Script" path="res://Script/Component/BulletSpawner/State/StateCooldown.gd" id="10_ff4ty"]
-[ext_resource type="Resource" uid="uid://7vd7yrucs0ej" path="res://Resource/Behavior/BulletPattern/BulletPattern.tres" id="11_b67nj"]
+[ext_resource type="Script" path="res://Script/Component/BulletPattern/Triplet/TripetPattern.gd" id="11_2xt40"]
 [ext_resource type="Script" path="res://Script/Component/BulletSpawner/State/StateShooting.gd" id="11_edv4g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ei1k"]
@@ -28,6 +28,9 @@ bg_color = Color(0.721569, 0.188235, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c71sk"]
 bg_color = Color(0, 0.94902, 0.192157, 1)
+
+[sub_resource type="Resource" id="Resource_uo8en"]
+script = ExtResource("11_2xt40")
 
 [node name="Unit" type="CharacterBody2D" groups=["Team1"]]
 collision_layer = 2
@@ -105,7 +108,7 @@ script = ExtResource("9_kj5d8")
 
 [node name="BulletSpawner" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("10_1ig1g")
-bullet_pattern = ExtResource("11_b67nj")
+bullet_pattern = SubResource("Resource_uo8en")
 initial_state = NodePath("StateIdle")
 
 [node name="StateCooldown" type="Node" parent="BulletSpawner"]

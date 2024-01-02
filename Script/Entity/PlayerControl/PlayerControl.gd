@@ -44,6 +44,10 @@ func _process(delta):
 	update_unit_selection()
 	pass
 	
+#func _input(event):
+	#update_input_parameters(event)
+	#update_unit_selection()
+	
 func _unhandled_input(event):
 	control_zoom(event)
 	update_camera_drag(event)
@@ -68,24 +72,40 @@ func set_zoom(unit):
 
 
 #region Update inputs
-#func update_mouse(event):
-	#if not event is InputEventMouseButton:
+#func update_input_parameters(event):
+	#if (not event is InputEventKey) or (not event is InputEventMouseButton):
 		#return
-		#
 	#if event.button_index == MOUSE_BUTTON_LEFT:
 		#if event.pressed:
 			#mouse1_held = true
 		#else:
 			#mouse1_held = false
-		#return
-		#
+		#return	
 	#if event.button_index == MOUSE_BUTTON_RIGHT:
 		#if event.pressed:
 			#mouse2_held = true
 		#else:
 			#mouse2_held = false
 		#return
-
+	#if event.button_index == OP_SHIFT_LEFT:
+		#if event.pressed:
+			#shift_held = true
+		#else:
+			#shift_held = false
+		#return
+	#if event.button_index == KEY_Q:
+		#if event.pressed:
+			#focused_shot = true
+		#else:
+			#focused_shot = false
+		#return
+	#if event.button_index == KEY_E:
+		#if event.pressed:
+			#parallel_shot = true
+		#else:
+			#parallel_shot = false
+		#return
+		
 func update_input_parameters():
 	mouse1_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	mouse2_held = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
@@ -139,7 +159,6 @@ func update_unit_selection():
 		#queue_redraw()
 	if focused_shot:
 		unit_select.focused_shot(get_global_mouse_position())
-		return
 	
 	if mouse2_held and not shift_held:
 		unit_select.clear_selection()
@@ -153,8 +172,9 @@ func update_unit_selection():
 		elif not shift_held:
 			# order movement
 			unit_select.set_target(get_global_mouse_position())
-
-	if dragging and not mouse1_held:
+	
+	#TODO: fix cumulative input
+	if dragging and not mouse1_held: #Input.is_action_just_released("leftclick"):
 		# finalize select
 		#if not shift_held:
 			#print("clear selection")

@@ -9,7 +9,7 @@ class_name Bullet
 
 static var bullet_count = 0
 
-var faction : int = 1
+var faction : int = 2
 var bullet_dmg : float = 100
 var bullet_lifetime : float = 10
 var bullet_max_dist : float

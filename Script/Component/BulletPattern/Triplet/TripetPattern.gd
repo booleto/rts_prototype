@@ -12,6 +12,7 @@ func update(tick : int, position : Vector2, angle : float, params : Dictionary =
 		bullet_temp.position = position
 		bullet_temp.position += Vector2.from_angle(angle + (i-1) * 90) * 40
 		bullet_temp.rotation = angle
-		bullet_temp.bullet_lifetime = 10
+		bullet_temp.bullet_lifetime = params.get("bullet_lifetime", 2)
+		bullet_temp.faction = params.get("faction", 1)
 		EntityManager.spawn_dmk(bullet_temp)
 	return status.ENDED

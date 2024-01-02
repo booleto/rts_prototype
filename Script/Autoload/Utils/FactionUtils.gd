@@ -37,9 +37,13 @@ func set_faction_status(fac : int, status : stat):
 	self.status[fac] = status
 	
 func set_relation(fac1 : int, fac2 : int, relation : rel):
+	fac1 -= 1
+	fac2 -= 1
 	relation[max(fac1, fac2)][min(fac1, fac2)] = relation
 
 func is_hostile(fac1 : int, fac2 : int):
+	fac1 -= 1
+	fac2 -= 1
 	return relation[max(fac1, fac2)][min(fac1, fac2)] == rel.HOSTILE
 	
 func is_friendly(fac1 : int, fac2 : int):

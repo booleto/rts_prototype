@@ -14,9 +14,12 @@ var max_health : float = 100
 var penetration_resistance : float = 100
 var attack_range : float = 100
 var move_speed : float = 200
-var can_move_and_shoot : bool = true
 var hurtbox_radius : float = 25
 var faction : int = 1
+
+var shot_cooldown = 1
+var shot_duration = 10
+var can_move_and_shoot : bool = true
 
 #region main
 func _ready():
@@ -70,5 +73,6 @@ func set_max_health(health: float):
 func shoot_dmk(target : Vector2):
 	bullet_spawner.transition_to("StateShooting", {
 		'position' : position,
-		'angle' : target.angle(),
+		'angle' : (target - position).angle(),
+		'faction' : faction
 	})

@@ -5,6 +5,7 @@ var tick : int = 0
 var position : Vector2
 var angle : float
 var duration : int
+var params : Dictionary
 
 func initialize():
 	super()
@@ -15,13 +16,14 @@ func enter(params : Dictionary):
 	position = params.get('position', actor.position)
 	angle = params.get('angle', 0)
 	duration = params.get('duration', 100)
+	self.params = params
 
 func update(_delta):
 	super(_delta)
 	
 func physics_update(_delta):
 	super(_delta)
-	var status = state_machine.bullet_pattern.update(tick, position, angle)
+	var status = state_machine.bullet_pattern.update(tick, position, angle, params)
 	tick += 1
 	if status == state_machine.bullet_pattern.status.ENDED or tick >= duration:
 		state_machine.transition_to("StateCooldown", {})

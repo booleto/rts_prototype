@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="TripletPattern" load_steps=2 format=3 uid="uid://c0pdo0aex2nn4"]
+
+[ext_resource type="Script" path="res://Script/Component/BulletPattern/Triplet/TripetPattern.gd" id="1_b2han"]
+
+[resource]
+script = ExtResource("1_b2han")
