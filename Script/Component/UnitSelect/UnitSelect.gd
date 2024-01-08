@@ -2,16 +2,36 @@ extends Node
 class_name UnitSelect
 
 var selection : Array = []
+var squads : Array[Array] = []
+var unit_spacing : float = 50
+
+func _ready():
+	squads.resize(10)
+	squads.fill([])
 
 func add_to_selection(arr : Array):	
-	print(selection)
 	for entry in arr:
 		if entry is Unit:
 			entry.highlight()
 			#if not entry.tree_exiting.is_connected(filter_invalids):
 				#entry.tree_exiting.connect(filter_invalids)
 	selection.append_array(arr)
+	#print(selection)
+
+func save_squad(index : int):
+	assert(index <= 9, "Invalid quad index")
+	squads[index] = selection
+	print_debug("squad saved: ", squads)
 	
+func select_squad(index : int):
+	assert(index <= 9, "Invalid squad index")
+	clear_selection()
+	add_to_selection(squads[index])
+	print_debug("squad selected", selection)
+
+func has_squad(index : int):
+	return squads[index].size() != 0
+
 func clear_selection():
 	filter_invalids()
 	for entry in selection:
@@ -20,13 +40,13 @@ func clear_selection():
 	
 func set_target(target : Vector2):
 	filter_invalids()
-	#if selection.size() == 1:
-		#selection[0].set_target(target)
-	#var formation = _rect_formation(selection.size(), 30, target)
-	#for i in selection.size():
-		#selection[i].set_target(formation[i])
-	for unit in selection:
-		unit.set_target(target)
+	if selection.size() == 1:
+		selection[0].set_target(target)
+	var formation = _rect_formation(selection.size(), unit_spacing, target)
+	for i in selection.size():
+		selection[i].set_target(formation[i])
+	#for unit in selection:
+		#unit.set_target(target)
 
 func get_size():
 	return selection.size()
@@ -43,21 +63,27 @@ func filter_invalids():
 
 func _rect_formation(unit_count : int, spacing : float, origin : Vector2):
 	var result = []
-	var cols_count = round(sqrt(unit_count))
-	var cols_spacing = cos(PI/6) * spacing
+	var cols_count : int = round(sqrt(unit_count))
+	var cols_spacing : float = cos(PI/6) * spacing
 	var offset : float = sin(PI/6) * spacing
 
 	var avg : Vector2 = Vector2.ZERO
 	var temp_vec : Vector2	
-	for i in range(unit_count):
-		for j in range(cols_count):
-			temp_vec.x = j * spacing + (j % 2) * offset
-			temp_vec.y = cols_spacing * i
-			avg += temp_vec
-			result.append(temp_vec)
+	#print("units: ", unit_count)
+	#print("cols: ", cols_count)
+
+	for i in range(unit_count): #TODO: FIX THIS SHIT
+		var cols_idx = i % cols_count
+		var rows_idx = int(floor(i / cols_count))
+		temp_vec.x = cols_idx * spacing + (rows_idx % 2) * offset
+		temp_vec.y = cols_spacing * rows_idx
+		#print("temp_vec: ", temp_vec)
+		avg += temp_vec
+		result.append(temp_vec)
 	
 	avg /= unit_count
 	#result.map(func(a): return a - avg + origin)
-	for vec in result:
-		vec -= avg - origin
+	for i in range(result.size()):
+		#result[i] -= avg
+		result[i] += origin - avg
 	return result

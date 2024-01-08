@@ -9,7 +9,7 @@ class_name Bullet
 
 static var bullet_count = 0
 
-var faction : int = 2
+var faction : int = 1
 var bullet_dmg : float = 100
 var bullet_lifetime : float = 10
 var bullet_max_dist : float
@@ -52,6 +52,13 @@ func handle_collision(collision):
 		return
 	var body = collision#.get_collider()
 	#print(self.faction, body.faction)
+	if body is Building:
+		if FactionUtils.is_hostile(faction, body.faction):
+			body.take_damage(bullet_dmg)
+			take_damage(body.penetration_resistance)
+		else:
+			take_damage(body.penetration_resistance)
+	
 	if (body is Hurtbox) and (FactionUtils.is_hostile(faction, body.faction)):
 		take_damage(body.penetration_resistance)
 		body.take_damage(bullet_dmg)

@@ -5,7 +5,9 @@ class_name PlayerControl
 @onready var unit_select : UnitSelect = $UnitSelect
 @onready var building_select : BuildingSelect = $BuildingSelect
 @onready var rect_intersect : RectIntersectQuery = $RectIntersectQuery
+@onready var state_machine : StateMachine = $PlayerStateMachine
 
+var faction : int = 0
 var zoom_unit : float = 0.1
 var default_zoom : float = 0.7
 var camera_move_speed : float = 1000
@@ -41,7 +43,7 @@ func _ready():
 func _process(delta):
 	update_input_parameters()
 	update_camera_move(delta)
-	update_unit_selection()
+	#update_unit_selection()
 	pass
 	
 #func _input(event):
@@ -50,7 +52,7 @@ func _process(delta):
 	
 func _unhandled_input(event):
 	control_zoom(event)
-	update_camera_drag(event)
+	#update_camera_drag(event)
 	
 #endregion
 
@@ -112,17 +114,35 @@ func update_input_parameters():
 	shift_held = Input.is_action_pressed("shift")
 	focused_shot = Input.is_action_pressed("focused_shot")
 	parallel_shot = Input.is_action_pressed("parallel_shot")
+	
+func keycode_to_index(keycode):
+	var squad_index = null
+	match keycode:
+		KEY_0:
+			squad_index = 0
+		KEY_1:
+			squad_index = 1
+		KEY_2:
+			squad_index = 2
+		KEY_3:
+			squad_index = 3
+		KEY_4:
+			squad_index = 4
+		KEY_5:
+			squad_index = 5
+		KEY_6:
+			squad_index = 6
+		KEY_7:
+			squad_index = 7
+		KEY_8:
+			squad_index = 8
+		KEY_9:
+			squad_index = 9
+	return squad_index
 #endregion
 
 
 #region Camera Movement
-func update_camera_drag(event):
-	if not event is InputEventMouseMotion:
-		return
-	if mouse2_held:
-		camera.translate( -(get_viewport().get_mouse_position() - _prev_mouse_position))
-	_prev_mouse_position = get_viewport().get_mouse_position()
-	
 func update_camera_move(delta : float):
 	var movement_vec = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if shift_held:
@@ -133,7 +153,7 @@ func update_camera_move(delta : float):
 
 #region Unit Selection
 
-func update_unit_selection():
+#func update_unit_selection():
 	#if mouse2_held:
 		#unit_select.clear_selection()
 		#return
@@ -157,54 +177,56 @@ func update_unit_selection():
 			#queue_redraw()
 	#if event is InputEventMouseMotion and dragging:
 		#queue_redraw()
-	if focused_shot:
-		unit_select.focused_shot(get_global_mouse_position())
+		
+		
+	#if focused_shot:
+		#unit_select.focused_shot(get_global_mouse_position())
+	#
+	#if mouse2_held and not shift_held:
+		#unit_select.clear_selection()
+		#return
+	#if mouse1_held and not dragging:
+		## start selection
+		#if unit_select.get_size() == 0 or shift_held:
+			#mouse1_start = get_global_mouse_position()
+			#dragging = true
+#
+		#elif not shift_held:
+			## order movement
+			#unit_select.set_target(get_global_mouse_position())
 	
-	if mouse2_held and not shift_held:
-		unit_select.clear_selection()
-		return
-	if mouse1_held and not dragging:
-		# start selection
-		if unit_select.get_size() == 0 or shift_held:
-			mouse1_start = get_global_mouse_position()
-			dragging = true
-
-		elif not shift_held:
-			# order movement
-			unit_select.set_target(get_global_mouse_position())
-	
-	#TODO: fix cumulative input
-	if dragging and not mouse1_held: #Input.is_action_just_released("leftclick"):
-		# finalize select
-		#if not shift_held:
-			#print("clear selection")
-			#unit_select.clear_selection()
-			#building_select.clear_selection()
-		#selection
-		var drag_end = get_local_mouse_position()
-		if (mouse1_start - drag_end).length() < mouse_drag_deadzone:
-			#single select
-			var query_result = await(rect_intersect.single_query(mouse1_start, drag_end, 2))
-			if query_result.size() != 0:
-				query_result = query_result.map(func(entry): return entry.collider)
-				if query_result[0] is Unit:
-					unit_select.add_to_selection(query_result)
-				#TODO: if query is Building
-			dragging = false
-
-		else:
-			#multiselect
-			var query_result = await(rect_intersect.query(mouse1_start, drag_end, 2))
-			query_result = query_result.map(func(entry): return entry.collider)
-			unit_select.add_to_selection(query_result)
-			queue_redraw()
-			dragging = false
-	if dragging:
-		queue_redraw()
+	##TODO: fix cumulative input
+	#if dragging and not mouse1_held: #Input.is_action_just_released("leftclick"):
+		## finalize select
+		##if not shift_held:
+			##print("clear selection")
+			##unit_select.clear_selection()
+			##building_select.clear_selection()
+		##selection
+		#var drag_end = get_local_mouse_position()
+		#if (mouse1_start - drag_end).length() < mouse_drag_deadzone:
+			##single select
+			#var query_result = await(rect_intersect.single_query(mouse1_start, drag_end, 2))
+			#if query_result.size() != 0:
+				#query_result = query_result.map(func(entry): return entry.collider)
+				#if query_result[0] is Unit:
+					#unit_select.add_to_selection(query_result)
+				##TODO: if query is Building
+			#dragging = false
+#
+		#else:
+			##multiselect
+			#var query_result = await(rect_intersect.query(mouse1_start, drag_end, 2))
+			#query_result = query_result.map(func(entry): return entry.collider)
+			#unit_select.add_to_selection(query_result)
+			#queue_redraw()
+			#dragging = false
+	#if dragging:
+		#queue_redraw()
 		
 func _draw():
-	if dragging:
+	if state_machine.current_state.name == "StateSelecting":
 		draw_rect(Rect2(mouse1_start, get_global_mouse_position() - mouse1_start),
-				Color.YELLOW, false, camera.zoom.x + 10)
+					Color.YELLOW, false, camera.zoom.x + 10)
 				
 #endregion

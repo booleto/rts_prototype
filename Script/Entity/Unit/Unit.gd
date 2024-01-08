@@ -9,13 +9,13 @@ class_name Unit
 @onready var hurtbox : Hurtbox = $Hurtbox
 @onready var bullet_spawner : BulletSpawner = $BulletSpawner
 
+@export var faction : int = 0
 var unit_name : String
 var max_health : float = 100
 var penetration_resistance : float = 100
 var attack_range : float = 100
 var move_speed : float = 200
 var hurtbox_radius : float = 25
-var faction : int = 1
 
 var shot_cooldown = 1
 var shot_duration = 10

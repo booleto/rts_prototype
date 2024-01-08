@@ -33,6 +33,7 @@ bg_color = Color(0, 0.94902, 0.192157, 1)
 script = ExtResource("11_2xt40")
 
 [node name="Unit" type="CharacterBody2D" groups=["Team1"]]
+y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
 input_pickable = true
@@ -63,6 +64,8 @@ script = ExtResource("4_wf188")
 move_speed = 200.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavComponent"]
+path_desired_distance = 25.0
+target_desired_distance = 25.0
 debug_enabled = true
 
 [node name="UnitStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]

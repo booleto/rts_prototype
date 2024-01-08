@@ -18,6 +18,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	current_state.update(delta)
+
+func _input(event):
+	current_state.input_update(event)
 	
 func _physics_process(delta):
 	current_state.physics_update(delta)

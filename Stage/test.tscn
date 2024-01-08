@@ -1,24 +1,27 @@
-[gd_scene load_steps=14 format=3 uid="uid://blesq7ktu8rvl"]
+[gd_scene load_steps=18 format=3 uid="uid://blesq7ktu8rvl"]
 
 [ext_resource type="Script" path="res://Script/Component/FPSCounter/FPSCounter.gd" id="1_5jkjc"]
-[ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="2_5iayo"]
 [ext_resource type="Script" path="res://Script/Entity/GameEntities/GameEntities.gd" id="2_6rvdr"]
 [ext_resource type="PackedScene" uid="uid://7yo6hd10bxur" path="res://Scene/Unit/unit.tscn" id="2_s2msc"]
 [ext_resource type="PackedScene" uid="uid://dp0dsnh6x1fuc" path="res://Scene/Bullet/bullet.tscn" id="3_c7rww"]
 [ext_resource type="TileSet" uid="uid://ohtuc0bj5oj0" path="res://Resource/Tileset/tileset.tres" id="4_hawy2"]
+[ext_resource type="PackedScene" uid="uid://cwv45rtcqewx6" path="res://Scene/Building/building.tscn" id="5_bu41v"]
 [ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerControl.gd" id="9_jkx7p"]
 [ext_resource type="Script" path="res://Script/Component/BuildingSelect/BuildingSelect.gd" id="10_ngyok"]
 [ext_resource type="Script" path="res://Script/Entity/PlayerControl/Camera/Camera.gd" id="11_kyds1"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/StateMachine.gd" id="12_0utfu"]
 [ext_resource type="Script" path="res://Script/Component/UnitSelect/UnitSelect.gd" id="12_2yonx"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerStateMachine/StateSelecting.gd" id="13_qu0ij"]
 [ext_resource type="Script" path="res://Script/Component/RectIntersectQuery/RectIntersectQuery.gd" id="14_46ll6"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerStateMachine/StateCommanding.gd" id="14_d78tn"]
+[ext_resource type="Script" path="res://Script/Entity/PlayerControl/PlayerStateMachine/StatePlayerIdle.gd" id="15_xt8vl"]
+[ext_resource type="Script" path="res://Script/Component/StateMachine/State/State.gd" id="16_kmsl6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_g5462"]
-vertices = PackedVector2Array(1285, -22, 1281, 903, 281, 227, 281, 119, -32, 799, 179, 227, -49, -18, 179, 119)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 1, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 0, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-60, -28, 1296, -33, 1291, 914, -42, 809)])
+vertices = PackedVector2Array(1548, -176, 1500, 910, 1290, 394, 1290, 246, 943, 321, 935, 238, 935, 130, 1037, 195, 1037, 303, 1024, 357, 563, 161, 563, 53, 833, 130, 833, 238, 769, 261, 281, 227, 461, 161, 871, 261, 281, 119, 461, 53, 922, 465, 981, 535, 981, 643, 459, 623, 459, 515, 841, 429, 1142, 246, 1142, 280, 1139, 280, 1139, 195, 1046, 303, 1046, 369, 1044, 369, 1044, 443, 1024, 443, 943, 357, 871, 321, 769, 287, 702, 287, 804, 395, 804, 369, 841, 369, 922, 429, 987, 465, 987, 535, 702, 395, 982, 643, 982, 724, 1084, 724, 1084, 707, 1160, 707, 1160, 623, 1168, 623, 1168, 515, 1089, 515, 1089, 477, 1146, 477, 1146, 394, -274, 924, 357, 623, 357, 515, 179, 227, -311, -187, 179, 119)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 15, 16, 10, 13, 17), PackedInt32Array(16, 15, 18, 19), PackedInt32Array(20, 21, 22, 23, 24, 25), PackedInt32Array(26, 27, 28, 29), PackedInt32Array(8, 30, 31, 32, 9), PackedInt32Array(32, 33, 34, 9), PackedInt32Array(9, 35, 4), PackedInt32Array(5, 4, 36, 17), PackedInt32Array(13, 5, 17), PackedInt32Array(14, 37, 38, 15), PackedInt32Array(39, 40, 41, 25), PackedInt32Array(25, 42, 20), PackedInt32Array(20, 43, 44, 21), PackedInt32Array(39, 25, 24, 45), PackedInt32Array(22, 46, 47), PackedInt32Array(48, 49, 50, 1), PackedInt32Array(50, 51, 52, 1), PackedInt32Array(53, 54, 55, 56), PackedInt32Array(56, 57, 2, 1, 53), PackedInt32Array(52, 53, 1), PackedInt32Array(23, 22, 47, 58, 59), PackedInt32Array(3, 26, 29, 0), PackedInt32Array(15, 38, 45, 24, 60, 61), PackedInt32Array(48, 1, 58, 47), PackedInt32Array(60, 59, 58, 62, 61), PackedInt32Array(63, 61, 62), PackedInt32Array(0, 29, 7, 6), PackedInt32Array(62, 0, 6, 11), PackedInt32Array(18, 63, 62, 19), PackedInt32Array(11, 19, 62), PackedInt32Array(11, 6, 12)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-322, -198, 1559, -186, 1510, 920, -284, 935)])
 source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
 
 [node name="Main" type="Node2D"]
 
@@ -84,10 +87,11 @@ position = Vector2(532, 256)
 position = Vector2(390, 335)
 
 [node name="Unit18" parent="GameEntities" instance=ExtResource("2_s2msc")]
-position = Vector2(428, 23)
+position = Vector2(-90, 159)
 
 [node name="Unit19" parent="GameEntities" instance=ExtResource("2_s2msc")]
 position = Vector2(144, 118)
+faction = 1
 
 [node name="Unit20" parent="GameEntities" instance=ExtResource("2_s2msc")]
 position = Vector2(373, 193)
@@ -118,16 +122,7 @@ navigation_polygon = SubResource("NavigationPolygon_g5462")
 constrain_avoidance = true
 metadata/_edit_lock_ = true
 
-[node name="Building" type="StaticBody2D" parent="GameArea"]
-position = Vector2(230, 173)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/Building"]
-scale = Vector2(4.08, 4.4)
-shape = SubResource("RectangleShape2D_d0ib0")
-
-[node name="Sprite2D" type="Sprite2D" parent="GameArea/Building"]
-texture = ExtResource("2_5iayo")
+[node name="Building" parent="GameArea" instance=ExtResource("5_bu41v")]
 
 [node name="TileMap" type="TileMap" parent="GameArea"]
 z_index = -1
@@ -136,7 +131,7 @@ scale = Vector2(4, 4)
 tile_set = ExtResource("4_hawy2")
 rendering_quadrant_size = 32
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 327680, 65536, 0, 1, 0, 0, 65537, 0, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 0, 0, 2, 65536, 1, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 65536, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 65536, 0, 327683, 0, 0, 4, 0, 0, 65540, 65536, 0, 131076, 65536, 1, 196612, 65536, 0, 262148, 65536, 1, 327684, 0, 0, 5, 65536, 0, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 0, 262149, 65536, 0, 327685, 0, 0, 6, 65536, 0, 65542, 65536, 1, 131078, 0, 0, 196614, 65536, 1, 262150, 65536, 0, 327686, 65536, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 65536, 0, 262151, 65536, 0, 327687, 0, 0, 8, 65536, 0, 65544, 0, 0, 131080, 65536, 0, 196616, 0, 0, 262152, 65536, 0, 327688, 65536, 0, 9, 0, 0, 65545, 0, 0, 131081, 65536, 0, 196617, 0, 0, 262153, 65536, 0, 327689, 65536, 0)
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 0, 0, 327680, 65536, 0, 1, 0, 0, 65537, 0, 0, 131073, 65536, 0, 196609, 65536, 0, 262145, 0, 0, 327681, 0, 0, 2, 65536, 1, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 65536, 0, 3, 65536, 0, 65539, 65536, 0, 131075, 0, 0, 196611, 65536, 0, 262147, 65536, 0, 327683, 0, 0, 4, 0, 0, 65540, 65536, 0, 131076, 65536, 1, 196612, 65536, 0, 262148, 65536, 1, 327684, 0, 0, 5, 65536, 0, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 0, 262149, 65536, 0, 327685, 0, 0, 6, 65536, 0, 65542, 65536, 1, 131078, 0, 0, 196614, 65536, 1, 262150, 65536, 0, 327686, 65536, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 65536, 0, 262151, 65536, 0, 327687, 0, 0, 8, 65536, 0, 65544, 0, 0, 131080, 65536, 0, 196616, 0, 0, 262152, 65536, 0, 327688, 65536, 0, 9, 0, 0, 65545, 0, 0, 131081, 1, 1, 196617, 0, 0, 262153, 65536, 0, 327689, 65536, 0)
 
 [node name="PlayerControl" type="Node2D" parent="."]
 script = ExtResource("9_jkx7p")
@@ -152,3 +147,19 @@ script = ExtResource("14_46ll6")
 
 [node name="BuildingSelect" type="Node" parent="PlayerControl"]
 script = ExtResource("10_ngyok")
+
+[node name="PlayerStateMachine" type="Node" parent="PlayerControl" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("12_0utfu")
+initial_state = NodePath("StatePlayerIdle")
+
+[node name="StateSelecting" type="Node" parent="PlayerControl/PlayerStateMachine"]
+script = ExtResource("13_qu0ij")
+
+[node name="StateCommanding" type="Node" parent="PlayerControl/PlayerStateMachine"]
+script = ExtResource("14_d78tn")
+
+[node name="StatePlayerIdle" type="Node" parent="PlayerControl/PlayerStateMachine"]
+script = ExtResource("15_xt8vl")
+
+[node name="StateBuilding" type="Node" parent="PlayerControl/PlayerStateMachine"]
+script = ExtResource("16_kmsl6")

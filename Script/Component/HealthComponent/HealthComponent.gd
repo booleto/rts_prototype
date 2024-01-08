@@ -13,7 +13,8 @@ func _ready():
 	actor = get_parent()
 	await(actor.ready)
 	visible = false
-	health = max_health
+	health = actor.max_health
+	max_health = actor.max_health
 
 func take_damage(dmg : float):
 	health -= dmg

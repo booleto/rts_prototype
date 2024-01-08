@@ -15,6 +15,9 @@ func enter(params : Dictionary):
 
 func update(_delta):
 	pass
+
+func input_update(event):
+	pass
 	
 func physics_update(_delta):
 	pass
