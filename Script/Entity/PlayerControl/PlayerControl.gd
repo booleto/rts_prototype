@@ -3,7 +3,7 @@ class_name PlayerControl
 
 @onready var camera : Camera2D = $Camera2D
 @onready var unit_select : UnitSelect = $UnitSelect
-@onready var building_select : BuildingSelect = $BuildingSelect
+@onready var building_manager : BuildingManager = $BuildingManager
 @onready var rect_intersect : RectIntersectQuery = $RectIntersectQuery
 @onready var state_machine : StateMachine = $PlayerStateMachine
 

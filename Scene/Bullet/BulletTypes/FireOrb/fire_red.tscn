@@ -1,20 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp0dsnh6x1fuc"]
+[gd_scene load_steps=6 format=3 uid="uid://bqv8evrhv0dq4"]
 
-[ext_resource type="Script" path="res://Script/Entity/Bullet/Bullet.gd" id="1_dpoic"]
-[ext_resource type="Script" path="res://Script/Component/MovementPattern/LinearMovement/LinearMovement.gd" id="2_btxsp"]
-[ext_resource type="SpriteFrames" uid="uid://dch21rdi3f0pc" path="res://Resource/Spriteframe/Danmaku/Small/dmk_small.tres" id="2_k05ks"]
+[ext_resource type="Script" path="res://Script/Entity/Bullet/Bullet.gd" id="1_kme2x"]
+[ext_resource type="Script" path="res://Script/Component/MovementPattern/LinearMovement/LinearMovement.gd" id="2_obli5"]
+[ext_resource type="SpriteFrames" uid="uid://dch21rdi3f0pc" path="res://Resource/Spriteframe/Danmaku/Small/dmk_small.tres" id="3_oyyty"]
 
 [sub_resource type="Resource" id="Resource_2ofaw"]
-script = ExtResource("2_btxsp")
+script = ExtResource("2_obli5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uhs3n"]
-radius = 18.0
+radius = 27.0185
 
 [node name="Bullet" type="Area2D"]
 texture_filter = 1
 collision_layer = 4
 collision_mask = 13
-script = ExtResource("1_dpoic")
+script = ExtResource("1_kme2x")
 movement_pattern = SubResource("Resource_2ofaw")
 metadata/_edit_group_ = true
 
@@ -22,8 +22,12 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_uhs3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-25, 0)
 scale = Vector2(4, 4)
-sprite_frames = ExtResource("2_k05ks")
+sprite_frames = ExtResource("3_oyyty")
+animation = &"fire_red"
+frame_progress = 0.271551
+speed_scale = 2.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

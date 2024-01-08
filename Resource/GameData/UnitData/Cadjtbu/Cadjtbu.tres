@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://xnfhrfmoqrtn"]
+
+[ext_resource type="Script" path="res://Script/Component/UnitData/Cadjtbu/Cadjtbu.gd" id="1_bj8it"]
+
+[resource]
+script = ExtResource("1_bj8it")

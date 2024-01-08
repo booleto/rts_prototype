@@ -1,18 +1,92 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dch21rdi3f0pc"]
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://dch21rdi3f0pc"]
 
 [ext_resource type="Texture2D" uid="uid://c8731ddeetd23" path="res://Asset/danmaku/preview.png" id="1_fmx6r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3igni"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(80, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq2nv"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(0, 288, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eta3l"]
 atlas = ExtResource("1_fmx6r")
 region = Rect2(0, 288, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xq1gf"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddq08"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hwyq"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx8c7"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo7do"]
+atlas = ExtResource("1_fmx6r")
+region = Rect2(0, 96, 16, 16)
+
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3igni")
+}],
+"loop": true,
+"name": &"bolt_blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq2nv")
+}],
+"loop": true,
+"name": &"bolt_red",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_eta3l")
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xq1gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddq08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hwyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx8c7")
+}],
+"loop": true,
+"name": &"fire_red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo7do")
+}],
+"loop": true,
+"name": &"orb_red",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"rice_red",
 "speed": 5.0
 }]

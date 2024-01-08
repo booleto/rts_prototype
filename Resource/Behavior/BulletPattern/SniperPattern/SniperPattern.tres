@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="SniperPattern" load_steps=2 format=3 uid="uid://ksmugt7fnn50"]
+
+[ext_resource type="Script" path="res://Script/Component/BulletPattern/SniperPattern/SniperPattern.gd" id="1_pyt7u"]
+
+[resource]
+script = ExtResource("1_pyt7u")

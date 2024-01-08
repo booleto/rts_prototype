@@ -72,7 +72,7 @@ func _rect_formation(unit_count : int, spacing : float, origin : Vector2):
 	#print("units: ", unit_count)
 	#print("cols: ", cols_count)
 
-	for i in range(unit_count): #TODO: FIX THIS SHIT
+	for i in range(unit_count):
 		var cols_idx = i % cols_count
 		var rows_idx = int(floor(i / cols_count))
 		temp_vec.x = cols_idx * spacing + (rows_idx % 2) * offset

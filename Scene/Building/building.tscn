@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwv45rtcqewx6"]
+[gd_scene load_steps=6 format=3 uid="uid://cwv45rtcqewx6"]
 
 [ext_resource type="Script" path="res://Script/Entity/Building/Building.gd" id="1_i56u2"]
 [ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="1_vckoq"]
 [ext_resource type="Script" path="res://Script/Component/HealthComponent/HealthComponent.gd" id="3_lihut"]
+[ext_resource type="Script" path="res://Script/Component/EcoGenerator/EcoGenerator.gd" id="4_5l4rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
 
@@ -25,3 +26,4 @@ offset_bottom = 27.0
 script = ExtResource("3_lihut")
 
 [node name="EcoGenerator" type="Node" parent="."]
+script = ExtResource("4_5l4rv")

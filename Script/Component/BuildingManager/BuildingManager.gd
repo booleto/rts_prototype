@@ -1,13 +1,18 @@
 extends Node
-class_name BuildingSelect
+class_name BuildingManager
 
 var selection : Array = []
+var buildings : Array[Building] = []
 
 func add_to_selection(building):
 	selection.append_array(building)
 	
 func clear_selection():
 	selection = []
+	
+func filter_invalids():
+	selection = selection.filter(func(entry): return entry.is_instance_valid() and entry is Building)
+	buildings = buildings.filter(func(entry): return entry.is_instance_valid() and entry is Building)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

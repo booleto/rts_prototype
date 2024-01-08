@@ -13,6 +13,7 @@ func initialize():
 
 func enter(params : Dictionary):
 	super(params)
+	cooldown.wait_time = actor.shot_cooldown
 	cooldown.start()
 
 #func update(_delta):

@@ -57,7 +57,7 @@ shape = SubResource("CircleShape2D_ekgli")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 texture = ExtResource("3_qvfvy")
-offset = Vector2(-17.83, -41)
+offset = Vector2(0, -39)
 
 [node name="NavComponent" type="Node2D" parent="."]
 script = ExtResource("4_wf188")
@@ -89,6 +89,13 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroComponent/AggroRange"]
 shape = SubResource("CircleShape2D_jstp1")
+
+[node name="AggroStateMachine" type="Node" parent="AggroComponent" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_7so6x")
+initial_state = NodePath("StateIdle")
+
+[node name="StateIdle" type="Node" parent="AggroComponent/AggroStateMachine"]
+script = ExtResource("6_nvqks")
 
 [node name="HealthComponent" type="ProgressBar" parent="."]
 texture_filter = 1

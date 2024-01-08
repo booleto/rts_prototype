@@ -11,7 +11,9 @@ var actor
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	actor = get_parent()
-	set_aggro_radius(aggro_radius)
+	await actor.ready
+	can_move_and_shoot = actor.can_move_and_shoot
+	set_aggro_radius(actor.attack_range)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

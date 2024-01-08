@@ -18,15 +18,15 @@ func _ready():
 
 func take_damage(dmg : float):
 	health -= dmg
-	emit_signal("took_damage", dmg)
+	took_damage.emit(dmg)
 	if health <= 0:
-		emit_signal("health_depleted")
+		health_depleted.emit()
 		actor.queue_free()
 
 func take_healing(heal : float):
 	health += heal
 	clamp(health, 0, max_health)
-	emit_signal("took_healing", heal)
+	took_healing.emit(heal)
 	
 func update_health_visual():
 	value = health

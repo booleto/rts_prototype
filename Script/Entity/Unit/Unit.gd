@@ -9,6 +9,7 @@ class_name Unit
 @onready var hurtbox : Hurtbox = $Hurtbox
 @onready var bullet_spawner : BulletSpawner = $BulletSpawner
 
+@export var unit_data : UnitData
 @export var faction : int = 0
 var unit_name : String
 var max_health : float = 100
@@ -17,25 +18,46 @@ var attack_range : float = 100
 var move_speed : float = 200
 var hurtbox_radius : float = 25
 
-var shot_cooldown = 1
-var shot_duration = 10
+var shot_cooldown : float = 1
 var can_move_and_shoot : bool = true
 
 #region main
 func _ready():
+	assert(unit_data != null, "Unit data not assigned to unit.")
 	$Hurtbox.set_radius(hurtbox_radius)
 	nav_component.set_move_speed(move_speed)
 	health_component.max_health = max_health
 	hurtbox.penetration_resistance = penetration_resistance
 	hurtbox.faction = faction
+	load_unit_data()
+	init_sprite_position()
+	init_dmk()
 
 func _process(delta):
 	update_sprite_direction()
 
 #endregion
 
+#region Load unit data
+func load_unit_data():
+	unit_name = unit_data.unit_name
+	max_health = unit_data.max_health
+	penetration_resistance = unit_data.penetration_resistance
+	attack_range = unit_data.attack_range
+	move_speed = unit_data.move_speed
+	hurtbox_radius = unit_data.hurtbox_radius
+	sprite.texture = unit_data.texture
+	shot_cooldown = unit_data.shot_cooldown
+	can_move_and_shoot = unit_data.can_move_and_shoot
+#endregion
+
 
 #region Sprite adjust and highlights
+func init_sprite_position():
+	var height = sprite.texture.get_height()
+	sprite.offset.y = -height/2 + hurtbox_radius
+	sprite.offset.x = 0
+
 func update_sprite_direction():
 	if velocity.x != 0:
 		sprite.scale.x = sign(velocity.x)
@@ -70,6 +92,9 @@ func set_max_health(health: float):
 #endregion
 
 #TODO: implement dmk
+func init_dmk():
+	bullet_spawner.bullet_pattern = unit_data.bullet_pattern
+
 func shoot_dmk(target : Vector2):
 	bullet_spawner.transition_to("StateShooting", {
 		'position' : position,
