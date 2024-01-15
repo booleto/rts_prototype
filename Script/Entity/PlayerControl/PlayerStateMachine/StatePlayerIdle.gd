@@ -19,6 +19,9 @@ func update(_delta):
 			"mouse1_start" : actor.get_global_mouse_position()
 		}
 		state_machine.transition_to("StateSelecting", params)
+		
+	if Input.is_action_just_pressed("build"):
+		state_machine.transition_to("StateBuilding", {})
 	
 func physics_update(_delta):
 	super(_delta)

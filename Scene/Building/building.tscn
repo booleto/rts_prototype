@@ -6,15 +6,16 @@
 [ext_resource type="Script" path="res://Script/Component/EcoGenerator/EcoGenerator.gd" id="4_5l4rv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
+size = Vector2(85, 85)
 
-[node name="Building" type="StaticBody2D"]
+[node name="Building" type="StaticBody2D" groups=["static_objects"]]
+z_index = -1
 position = Vector2(230, 173)
 collision_layer = 9
 script = ExtResource("1_i56u2")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(4.08, 4.4)
 shape = SubResource("RectangleShape2D_d0ib0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

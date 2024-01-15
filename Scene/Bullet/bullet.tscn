@@ -27,5 +27,3 @@ sprite_frames = ExtResource("2_k05ks")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-
-[connection signal="area_entered" from="." to="." method="handle_collision"]

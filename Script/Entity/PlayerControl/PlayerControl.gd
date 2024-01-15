@@ -229,4 +229,13 @@ func _draw():
 		draw_rect(Rect2(mouse1_start, get_global_mouse_position() - mouse1_start),
 					Color.YELLOW, false, camera.zoom.x + 10)
 				
+	if state_machine.current_state.name == "StateBuilding":
+		var color : Color = state_machine.current_state.draw_color
+		var rect_size : Vector2 = Vector2(Building.size, Building.size)
+		draw_rect(Rect2(get_global_mouse_position() - rect_size / 2, rect_size),
+					color, false, camera.zoom.x + 10)
 #endregion
+
+
+
+

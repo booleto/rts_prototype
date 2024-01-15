@@ -23,6 +23,8 @@ func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 	timer.wait_time = bullet_lifetime
 	timer.start()
+	area_entered.connect(_on_area_entered)
+	body_entered.connect(_on_body_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -35,38 +37,47 @@ func _physics_process(delta):
 	position += velocity
 
 func _on_timer_timeout():
-	bullet_count -= 1
-	queue_free()
+	free_bullet()
 
 func take_damage(dmg: float):
 	bullet_health -= dmg
-	print(name, " took dmg, health: ", bullet_health)
+	#print(name, " took dmg, health: ", bullet_health)
 	if bullet_health <= 0:
-		queue_free()
+		free_bullet()
 
 func set_collision_radius(radius : float):
 	collision_shape.shape.radius = radius
 
-func handle_collision(collision):
+func _on_area_entered(collision):
 	if collision == null:
 		return
 	var body = collision#.get_collider()
 	#print(self.faction, body.faction)
+	
+	if (body is Hurtbox) and (FactionUtils.is_hostile(faction, body.faction)):
+		take_damage(body.penetration_resistance)
+		body.take_damage(bullet_dmg)
+	if (body is Bullet) and (FactionUtils.is_hostile(faction, body.faction)):
+		#simultaneous bullet collision - prevent 1-sided freeing
+		var body_health = body.bullet_health
+		body.bullet_health -= bullet_health
+		bullet_health -= body_health
+		body.take_damage(0)
+		take_damage(0)
+
+
+
+func _on_body_entered(body):
+	if body is TileMap:
+		free_bullet()
+	
 	if body is Building:
 		if FactionUtils.is_hostile(faction, body.faction):
 			body.take_damage(bullet_dmg)
 			take_damage(body.penetration_resistance)
 		else:
 			take_damage(body.penetration_resistance)
-	
-	if (body is Hurtbox) and (FactionUtils.is_hostile(faction, body.faction)):
-		take_damage(body.penetration_resistance)
-		body.take_damage(bullet_dmg)
-	#if body is Bullet:
-		##simultaneous bullet collision - prevent 1-sided freeing
-		#var body_health = body.bullet_health
-		#body.bullet_health -= bullet_health
-		#bullet_health -= body_health
-		#body.take_damage(0)
-		#take_damage(0)
-
+			
+func free_bullet():
+	bullet_count -= 1
+	queue_free()
