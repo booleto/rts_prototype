@@ -12,8 +12,10 @@ var shot_cooldown : float
 var can_move_and_shoot : bool
 #endregion
 
-var texture : Texture
+var texture : Texture2D
 var bullet_pattern : BulletPattern
+
+var description : String
 
 func _init():
 	printerr("Contructor of UnitData must be overridden. All inherited fields must be initialized")

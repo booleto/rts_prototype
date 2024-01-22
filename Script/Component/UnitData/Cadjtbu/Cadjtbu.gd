@@ -12,3 +12,4 @@ func _init():
 	shot_cooldown = 0.5
 	texture = load("res://Asset/fesh/fesh_djtbu.png")
 	bullet_pattern = SpreadPattern.new()
+	description = tr("")

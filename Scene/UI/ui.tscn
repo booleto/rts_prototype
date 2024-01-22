@@ -1,10 +1,74 @@
-[gd_scene load_steps=2 format=3 uid="uid://buda8tibpn6ea"]
+[gd_scene load_steps=4 format=3 uid="uid://buda8tibpn6ea"]
 
 [ext_resource type="Script" path="res://Script/Component/FPSCounter/FPSCounter.gd" id="1_3mwob"]
+[ext_resource type="Script" path="res://Script/Component/UI/UI.gd" id="1_ld7jg"]
+[ext_resource type="Texture2D" uid="uid://dqic6sliefb28" path="res://Asset/fesh/fesh_djtbu.png" id="2_72lsr"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_ld7jg")
 
-[node name="FPSCounter" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="StatsContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="FPSCounter" type="Label" parent="MarginContainer/StatsContainer"]
+layout_mode = 2
+text = "gay"
 script = ExtResource("1_3mwob")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Image" type="TextureRect" parent="MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+texture = ExtResource("2_72lsr")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 7
+
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer/HSplitContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Description" type="Label" parent="MarginContainer/PanelContainer/HSplitContainer/MarginContainer/HFlowContainer"]
+layout_mode = 2
+text = "jashdflkjshdlkjhfsjlaks;jfdjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="VSplitContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer2/VSplitContainer"]
+layout_mode = 2
+text = "Money:"
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer2/VSplitContainer"]
+layout_mode = 2
+text = "afjasldfhaljsf"
