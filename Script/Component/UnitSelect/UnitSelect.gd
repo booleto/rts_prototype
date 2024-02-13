@@ -1,13 +1,15 @@
 extends Node
 class_name UnitSelect
 
-var selection : Array = []
+var selection : Array[Unit] = []
 var squads : Array[Array] = []
 var unit_spacing : float = 50
+
 
 func _ready():
 	squads.resize(10)
 	squads.fill([])
+
 
 func add_to_selection(arr : Array):	
 	for entry in arr:
@@ -18,10 +20,12 @@ func add_to_selection(arr : Array):
 	selection.append_array(arr)
 	#print(selection)
 
+
 func save_squad(index : int):
 	assert(index <= 9, "Invalid quad index")
 	squads[index] = selection
 	print_debug("squad saved: ", squads)
+
 	
 func select_squad(index : int):
 	assert(index <= 9, "Invalid squad index")
@@ -29,14 +33,17 @@ func select_squad(index : int):
 	add_to_selection(squads[index])
 	print_debug("squad selected", selection)
 
+
 func has_squad(index : int):
 	return squads[index].size() != 0
+
 
 func clear_selection():
 	filter_invalids()
 	for entry in selection:
 		if entry is Unit: entry.disable_highlight()
 	selection = []
+
 	
 func set_target(target : Vector2):
 	filter_invalids()
@@ -48,8 +55,10 @@ func set_target(target : Vector2):
 	#for unit in selection:
 		#unit.set_target(target)
 
+
 func get_size():
 	return selection.size()
+
 
 func focused_shot(target : Vector2):
 	filter_invalids()
@@ -58,8 +67,22 @@ func focused_shot(target : Vector2):
 	for unit in selection:
 		unit.shoot_dmk(target)
 
+
 func filter_invalids():
 	selection = selection.filter(func(unit): return is_instance_valid(unit) and unit is Unit)
+
+	
+func is_same_type() -> bool:
+	if selection.size() == 0:
+		return false
+		
+	var type : UnitData = selection[0].unit_data
+	for unit in selection:
+		if not unit.unit_data == type:
+			return false
+			
+	return true
+
 
 func _rect_formation(unit_count : int, spacing : float, origin : Vector2):
 	var result = []

@@ -6,7 +6,7 @@ func _init():
 	max_health = 10
 	penetration_resistance = 1
 	attack_range = 10
-	move_speed = 200
+	move_speed = 4
 	hurtbox_radius = 25
 	can_move_and_shoot = false
 	shot_cooldown = 0.5

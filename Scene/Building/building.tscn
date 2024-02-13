@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwv45rtcqewx6"]
+[gd_scene load_steps=8 format=3 uid="uid://cwv45rtcqewx6"]
 
 [ext_resource type="Script" path="res://Script/Entity/Building/Building.gd" id="1_i56u2"]
 [ext_resource type="Texture2D" uid="uid://cy1veo8mvbbhq" path="res://Asset/idul/gay.png" id="1_vckoq"]
@@ -8,9 +8,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0ib0"]
 size = Vector2(85, 85)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu7xj"]
+bg_color = Color(0.721569, 0.188235, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i50mc"]
+bg_color = Color(0, 0.94902, 0.192157, 1)
+
 [node name="Building" type="StaticBody2D" groups=["static_objects"]]
 z_index = -1
-position = Vector2(230, 173)
 collision_layer = 9
 script = ExtResource("1_i56u2")
 metadata/_edit_group_ = true
@@ -22,8 +27,22 @@ shape = SubResource("RectangleShape2D_d0ib0")
 texture = ExtResource("1_vckoq")
 
 [node name="HealthComponent" type="ProgressBar" parent="."]
-offset_right = 4.0
-offset_bottom = 27.0
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -70.0
+offset_right = 50.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_cu7xj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_i50mc")
+value = 50.0
+show_percentage = false
 script = ExtResource("3_lihut")
 
 [node name="EcoGenerator" type="Node" parent="."]

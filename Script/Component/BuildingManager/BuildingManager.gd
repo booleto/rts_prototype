@@ -5,9 +5,13 @@ var selection : Array = []
 var buildings : Array[Building] = []
 
 func add_to_selection(building):
+	for build in building:
+		build.highlight()
 	selection.append_array(building)
 	
 func clear_selection():
+	for build in selection:
+		build.disable_highlight()
 	selection = []
 	
 func filter_invalids():

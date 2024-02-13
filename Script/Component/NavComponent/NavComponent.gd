@@ -12,7 +12,7 @@ var actor : Unit
 
 func _ready():
 	nav_agent.max_speed = move_speed
-	nav_agent.target_desired_distance = move_speed / 5
+	#nav_agent.target_desired_distance = move_speed / 5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _physics_process(delta):
@@ -34,7 +34,7 @@ func next_path():
 func set_move_speed(speed : float):
 	move_speed = speed
 	nav_agent.max_speed = move_speed
-	nav_agent.target_desired_distance = move_speed / 5
+	#nav_agent.target_desired_distance = move_speed / 5
 	
 func cancel_movement():
 	is_moving = false

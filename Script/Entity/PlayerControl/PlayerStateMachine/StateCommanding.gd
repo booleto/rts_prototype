@@ -2,15 +2,21 @@ extends State
 class_name StateCommanding
 
 var unit_select : UnitSelect
+var ui : UIComponent
 
 func initialize():
 	assert(actor is PlayerControl, "Non-player assigned as actor of player state")
 	await actor.ready
 	unit_select = actor.unit_select
+	ui = get_tree().root.get_node("Main/UI")
 
 func enter(params : Dictionary):
 	super(params)
 	actor.queue_redraw()
+	if unit_select.is_same_type():
+		ui.display_unit(unit_select.selection[0].unit_data)
+		print_debug("display")
+
 
 func update(_delta):
 	#Add to selection

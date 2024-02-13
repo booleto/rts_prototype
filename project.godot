@@ -21,6 +21,10 @@ GameManager="*res://Script/Autoload/Manager/GameManager.gd"
 FactionUtils="*res://Script/Autoload/Utils/FactionUtils.gd"
 EntityManager="*res://Script/Autoload/Manager/EntityManager.gd"
 
+[display]
+
+window/vsync/vsync_mode=0
+
 [file_customization]
 
 folder_colors={

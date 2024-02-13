@@ -19,8 +19,14 @@ var faction : int
 func _ready():
 	eco_generator.actor = self
 	collision_shape.shape.size = Vector2(size, size)
+	health_component.visible = false
 
 func take_damage(dmg : float):
 	damaged.emit(dmg)
 	health_component.take_damage(dmg)
 
+func highlight():
+	health_component.visible = true
+	
+func disable_highlight():
+	health_component.visible = false
